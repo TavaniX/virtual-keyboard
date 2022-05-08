@@ -157,7 +157,10 @@ class Keys {
                     } else if (currentCode === 'CapsLock') {
                         e.preventDefault()
                         elem.click()
-                    } else if (currentCode === 'ShiftLeft') {
+                    } else if (
+                        currentCode === 'ShiftLeft' ||
+                        currentCode === 'ShiftRight'
+                    ) {
                         e.preventDefault()
                         elem.classList.add('active')
                         this.keyShiftLogic('uppercase')
@@ -178,21 +181,36 @@ class Keys {
                 if (currentCode === currentId && currentId !== 'CapsLock') {
                     elem.classList.remove('active')
                 }
-                if (currentCode === 'ShiftLeft') {
+                if (
+                    currentCode === 'ShiftLeft' ||
+                    currentCode === 'ShiftRight'
+                ) {
                     this.keyShiftLogic('lowercase')
                 }
             })
         })
     }
     keyShiftHandler() {
-        let keyShift = document.querySelector('[data-id="ShiftLeft"]')
-        keyShift.addEventListener('mousedown', () => {
+        let keyShiftLeft = document.querySelector('[data-id="ShiftLeft"]')
+        keyShiftLeft.addEventListener('mousedown', () => {
             this.keyShiftLogic('uppercase')
-            keyShift.classList.add('active')
+            keyShiftLeft.classList.add('active')
             document.addEventListener('mouseup', (e) => {
-                if (e.target === keyShift) {
+                if (e.target === keyShiftLeft) {
                     this.keyShiftLogic('lowercase')
-                    keyShift.classList.remove('active')
+                    keyShiftLeft.classList.remove('active')
+                }
+            })
+        })
+
+        let keyShiftRight = document.querySelector('[data-id="ShiftRight"]')
+        keyShiftRight.addEventListener('mousedown', () => {
+            this.keyShiftLogic('uppercase')
+            keyShiftRight.classList.add('active')
+            document.addEventListener('mouseup', (e) => {
+                if (e.target === keyShiftRight) {
+                    this.keyShiftLogic('lowercase')
+                    keyShiftRight.classList.remove('active')
                 }
             })
         })
