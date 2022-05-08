@@ -184,6 +184,19 @@ class Keys {
             })
         })
     }
+    keyShiftHandler() {
+        let keyShift = document.querySelector('[data-id="ShiftLeft"]')
+        keyShift.addEventListener('mousedown', () => {
+            this.keyShiftLogic('uppercase')
+            keyShift.classList.add('active')
+            document.addEventListener('mouseup', (e) => {
+                if (e.target === keyShift) {
+                    this.keyShiftLogic('lowercase')
+                    keyShift.classList.remove('active')
+                }
+            })
+        })
+    }
 }
 
 let keys = new Keys()
