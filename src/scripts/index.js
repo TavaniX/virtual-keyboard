@@ -197,6 +197,18 @@ class Keys {
             })
         })
     }
+    keyShiftLogic(status) {
+        this.setLang()
+        let keysArr = [...keyboardWrapper.children]
+        keysArr.forEach((elem) => {
+            let keyId = elem.getAttribute('data-id')
+            for (let i = 0; i < layouts.length; i++) {
+                if (keyId === layouts[i].key) {
+                    elem.children[0].innerText = layouts[i][this.lang][status]
+                }
+            }
+        })
+    }
 }
 
 let keys = new Keys()
