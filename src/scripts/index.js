@@ -245,6 +245,30 @@ class Keys {
         }
         this.lang = localStorage.getItem('lang')
     }
+    caretPosition(elem) {
+        let caretPosition = textarea.selectionStart
+        let caretPositionEnd = textarea.selectionEnd
+        textarea.value =
+            textarea.value.slice(0, caretPosition) +
+            elem +
+            textarea.value.slice(caretPositionEnd, textarea.value.length)
+        textarea.selectionStart = caretPosition + elem.length
+        textarea.selectionEnd = caretPosition + elem.length
+        textarea.focus()
+    }
+    caretMove(count, number) {
+        let caretPosition = +textarea.selectionStart
+        let caretPositionEnd = +textarea.selectionEnd
+        textarea.value =
+            textarea.value.slice(0, caretPosition - count) +
+            textarea.value.slice(
+                caretPositionEnd + number,
+                textarea.value.length
+            )
+        textarea.selectionStart = caretPosition - count
+        textarea.selectionEnd = caretPosition - count
+        textarea.focus()
+    }
 }
 
 let keys = new Keys()
