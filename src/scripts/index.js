@@ -209,6 +209,42 @@ class Keys {
             }
         })
     }
+    switchLang() {
+        let controlLeft = document.querySelector('[data-id="ControlLeft"]')
+        let altLeft = document.querySelector('[data-id="AltLeft"]')
+        document.addEventListener('keydown', () => {
+            if (
+                controlLeft.classList.contains('active') &&
+                altLeft.classList.contains('active')
+            ) {
+                this.localStorageLang()
+            }
+        })
+    }
+    localStorageLang() {
+        this.setLang()
+        if (this.lang === 'ru') {
+            localStorage.setItem('lang', 'en')
+            this.lang = localStorage.getItem('lang')
+            this.wrapper.setAttribute('data-lang', this.lang)
+            this.keyShiftLogic('lowercase')
+        } else {
+            localStorage.setItem('lang', 'ru')
+            this.lang = localStorage.getItem('lang')
+            this.wrapper.setAttribute('data-lang', this.lang)
+            this.keyShiftLogic('lowercase')
+        }
+    }
+    setLang() {
+        if (!this.lang) {
+            localStorage.setItem('lang', 'ru')
+            this.lang = localStorage.getItem('lang')
+            this.wrapper.setAttribute('data-lang', this.lang)
+        } else {
+            this.wrapper.setAttribute('data-lang', this.lang)
+        }
+        this.lang = localStorage.getItem('lang')
+    }
 }
 
 let keys = new Keys()
