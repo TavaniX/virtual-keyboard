@@ -57,7 +57,78 @@ class Keys {
             } else {
                 keyInner.textContent = `${keyEn}`
             }
+            key.addEventListener('click', (e) => {
+                if (
+                    !(keyId === 'Enter') &&
+                    !(keyId === 'Tab') &&
+                    !(keyId === 'Backspace') &&
+                    !(keyId === 'Delete') &&
+                    !(keyId === 'ShiftLeft') &&
+                    !(keyId === 'ShiftRight') &&
+                    !(keyId === 'AltLeft') &&
+                    !(keyId === 'AltRight') &&
+                    !(keyId === 'ControlLeft') &&
+                    !(keyId === 'ControlRight') &&
+                    !(keyId === 'MetaLeft') &&
+                    !(keyId === 'CapsLock') &&
+                    !(keyId === 'Space')
+                ) {
+                    let value = e.target.textContent
+                    this.caretPosition(value)
+                } else if (keyId === 'Tab') {
+                    let tabText = '    '
+                    this.caretPosition(tabText)
+                } else if (keyId === 'Space') {
+                    let spaceText = ' '
+                    this.caretPosition(spaceText)
+                } else if (keyId === 'Enter') {
+                    let enterText = '\n'
+                    this.caretPosition(enterText)
+                } else if (keyId === 'Backspace') {
+                    let caretPosition = +textarea.selectionStart
+                    let caretPositionEnd = +textarea.selectionEnd
+                    if (
+                        caretPosition !== caretPositionEnd ||
+                        caretPosition === 0
+                    ) {
+                        this.caretMove(0, 0)
+                    } else {
+                        this.caretMove(1, 0)
+                    }
+                } else if (keyId === 'Delete') {
+                    let caretPosition = +textarea.selectionStart
+                    let caretPositionEnd = +textarea.selectionEnd
+                    if (caretPosition !== caretPositionEnd) {
+                        this.caretMove(0, 0)
+                    } else if (caretPosition === 0) {
+                        this.caretMove(0, 1)
+                    } else {
+                        this.caretMove(0, 1)
+                    }
+                } else if (keyId === 'CapsLock') {
+                    e.target.classList.toggle('active')
+                    let keysArr = [...e.target.parentElement.children]
+                    keysArr.forEach((e) => {
+                        let keySpan = e.children[0].innerText.length
+                        if (keySpan === 1) {
+                            if (!e.classList.contains('uppercase')) {
+                                e.classList.add('uppercase')
+                                e.children[0].innerText =
+                                    e.children[0].innerText.toUpperCase()
+                            } else {
+                                e.classList.remove('uppercase')
+                                e.children[0].innerText =
+                                    e.children[0].innerText.toLowerCase()
+                            }
+                        }
+                    })
+                }
+            })
+            keyboardWrapper.appendChild(key)
         }
+        this.keyboardClick()
+        this.keyShiftHandler()
+        this.switchLang()
     }
 }
 
