@@ -130,6 +130,60 @@ class Keys {
         this.keyShiftHandler()
         this.switchLang()
     }
+    keyboardClick() {
+        document.addEventListener('keydown', (e) => {
+            let currentCode = e.code
+            let keys = document.querySelectorAll('[data-id]')
+            keys.forEach((elem) => {
+                let currentId = elem.getAttribute('data-id')
+                if (currentCode === currentId) {
+                    if (
+                        currentCode !== 'Backspace' &&
+                        currentCode !== 'Enter' &&
+                        currentCode !== 'Delete' &&
+                        currentCode !== 'ShiftLeft' &&
+                        currentCode !== 'ShiftRight' &&
+                        currentCode !== 'AltLeft' &&
+                        currentCode !== 'AltRight' &&
+                        currentCode !== 'ControlLeft' &&
+                        currentCode !== 'ControlRight' &&
+                        currentCode !== 'CapsLock' &&
+                        currentCode !== 'MetaLeft' &&
+                        currentCode !== 'Space'
+                    ) {
+                        e.preventDefault()
+                        elem.classList.add('active')
+                        elem.click()
+                    } else if (currentCode === 'CapsLock') {
+                        e.preventDefault()
+                        elem.click()
+                    } else if (currentCode === 'ShiftLeft') {
+                        e.preventDefault()
+                        elem.classList.add('active')
+                        this.keyShiftLogic('uppercase')
+                    } else {
+                        elem.classList.add('active')
+                        textarea.focus()
+                    }
+                }
+            })
+        })
+        document.addEventListener('keyup', (e) => {
+            e.preventDefault()
+            let currentCode = e.code
+            let keys = document.querySelectorAll('[data-id]')
+
+            keys.forEach((elem) => {
+                let currentId = elem.getAttribute('data-id')
+                if (currentCode === currentId && currentId !== 'CapsLock') {
+                    elem.classList.remove('active')
+                }
+                if (currentCode === 'ShiftLeft') {
+                    this.keyShiftLogic('lowercase')
+                }
+            })
+        })
+    }
 }
 
 let keys = new Keys()
