@@ -270,6 +270,5 @@ class Keys {
         textarea.focus()
     }
 }
-
 let keys = new Keys()
 keys.keysRender()
