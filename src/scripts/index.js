@@ -127,9 +127,11 @@ class Keys {
             this.wrapper.appendChild(key)
         }
         this.keyboardClick()
-        this.keyShiftHandler('ShiftLeft')
-        this.keyShiftHandler('ShiftRight')
-        this.switchLang()
+        this.keyShiftHandler('ShiftLeft');
+        this.keyShiftHandler('ShiftRight');
+        this.switchLang();
+        this.switchLangVirtual('ControlLeft', 'AltLeft')
+        this.switchLangVirtual('AltLeft', 'ControlLeft')
     }
     keyboardClick() {
         document.addEventListener('keydown', (e) => {
@@ -228,6 +230,22 @@ class Keys {
             }
         })
     }
+    switchLangVirtual(firstKey, lastKey) {
+        firstKey = document.querySelector(`[data-id="${firstKey}"]`);
+        lastKey = document.querySelector(`[data-id="${lastKey}"]`);
+        firstKey.addEventListener('mousedown', () => {
+            firstKey.classList.add('active');
+        })
+        document.addEventListener('mouseup', (e) => {
+            if(e.target === lastKey && firstKey.classList.contains('active')) {
+                firstKey.classList.remove('active');
+                this.localStorageLang();
+            } else {
+                firstKey.classList.remove('active');
+            }
+        })
+    }
+
     localStorageLang() {
         this.setLang()
         if (this.lang === 'ru') {
