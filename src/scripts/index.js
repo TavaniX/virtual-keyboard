@@ -124,10 +124,11 @@ class Keys {
                     })
                 }
             })
-            keyboardWrapper.appendChild(key)
+            this.wrapper.appendChild(key)
         }
         this.keyboardClick()
-        this.keyShiftHandler()
+        this.keyShiftHandler('ShiftLeft')
+        this.keyShiftHandler('ShiftRight')
         this.switchLang()
     }
     keyboardClick() {
@@ -190,27 +191,15 @@ class Keys {
             })
         })
     }
-    keyShiftHandler() {
-        let keyShiftLeft = document.querySelector('[data-id="ShiftLeft"]')
-        keyShiftLeft.addEventListener('mousedown', () => {
+    keyShiftHandler(shifKey) {
+        let keyShift = document.querySelector(`[data-id="${shifKey}"]`)
+        keyShift.addEventListener('mousedown', () => {
             this.keyShiftLogic('uppercase')
-            keyShiftLeft.classList.add('active')
+            keyShift.classList.add('active')
             document.addEventListener('mouseup', (e) => {
-                if (e.target === keyShiftLeft) {
+                if (e.target === keyShift) {
                     this.keyShiftLogic('lowercase')
-                    keyShiftLeft.classList.remove('active')
-                }
-            })
-        })
-
-        let keyShiftRight = document.querySelector('[data-id="ShiftRight"]')
-        keyShiftRight.addEventListener('mousedown', () => {
-            this.keyShiftLogic('uppercase')
-            keyShiftRight.classList.add('active')
-            document.addEventListener('mouseup', (e) => {
-                if (e.target === keyShiftRight) {
-                    this.keyShiftLogic('lowercase')
-                    keyShiftRight.classList.remove('active')
+                    keyShift.classList.remove('active')
                 }
             })
         })
