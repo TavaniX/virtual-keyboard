@@ -270,7 +270,7 @@ class Keys {
             textarea.value.slice(0, caretPosition - count) +
             textarea.value.slice(
                 caretPositionEnd + number,
-                textarea.value.length
+                textarea.value.length,
             )
         textarea.selectionStart = caretPosition - count
         textarea.selectionEnd = caretPosition - count
